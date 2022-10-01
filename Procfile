@@ -1,0 +1,1 @@
+web gunicorn supperShop.wsgi:application --log-file -
