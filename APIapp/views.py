@@ -45,3 +45,42 @@ class addProductDetail(APIView):
         productadd = self.get_object(pk)
         productadd.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+class  registered_UserList(ListAPIView):
+    def get(self,request,format=None):
+        users = registerd_user.objects.all()
+        serializer = registerd_userserializer(users,many=True)
+        return Response(serializer.data)
+
+    def post(self,request,format=None):
+        serializer =registerd_userserializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST) 
+
+class  returnProductList(ListAPIView):
+    def get(self,request,format=None):
+        returns = addReturn.objects.all()
+        serializer = addReturnserializer(returns,many=True)
+        return Response(serializer.data)
+
+    def post(self,request,format=None):
+        serializer =addReturnserializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST) 
+
+class saleProductList(ListAPIView):
+    def get(self,request,format=None):
+        sales = salesAdd.objects.all()
+        serializer = saleSerializer(sales,many=True)
+        return Response(serializer.data)
+
+    def post(self,request,format=None):
+        serializer =saleSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
+        return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)         
